@@ -18,23 +18,15 @@ typedef struct __header_t{
 
 typedef struct __node_t{
   int size;
-  node_t* next;
+  struct __node_t* next;
 } node_t;
 
-node_t* head = NULL; 
+extern node_t* head; 
 // allocates `bytes` bytes and returns void* ptr
 void* alloc(int bytes);
-// would free ptr if it is the starting address of an allocated block (checked using magic bytes)
-void free(void* ptr);
+// would free ptr if it is the starting address ojf an allocated block (checked using magic bytes)
+void myfree(void* ptr);
 
-// if out_of_memory && bytes <= THRESHOLD alloc calls sbrk_alloc internally 
-static void* sbrk_alloc(bytes);
-// if out_of_memory && bytes >= THRESHOLD alloc calls mmap_alloc internally 
-static void* mmap_alloc(bytes);
-// on the first allocation check if head==NULL and run init to acquire memory through mmap for the heap 
-static void init();
-static void* first_fit(int bytes);
-static void* best_fit(int bytes);
-static void* worst_fit(int bytes);
+// No static function declarations here - they belong only in the .c file
 
 #endif
